@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PackageItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,14 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/profile', [FrontendController::class, 'profile']);
+
+/**
+ * Admin Part
+ * DRY
+ */
+Route::group(['prefix' => 'admin'], function () {
+    Route::group([], function () {
+        Route::resource('package', PackageController::class);
+        Route::resource('package-item', PackageItemController::class);
+    });
+});
